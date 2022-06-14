@@ -1,0 +1,328 @@
+﻿#include "Solution.h"
+
+const char* func[18] = { "cos", "sin", "tan", "acos", "asin", "atan", "cosh", "sinh", "tanh", "acosh", "asinh", "atanh", "exp", "abs", "log", "log10", "sqrt", "cbrt" };
+float (*address[18])(float) = { cal_cos, cal_sin, cal_tan, cal_acos, cal_asin, cal_atan, cal_cosh, cal_sinh, cal_tanh, cal_acosh, cal_asinh, cal_atanh, cal_exp, cal_abs, cal_log, cal_log10, cal_sqrt, cal_cbrt };
+
+
+bool Solution::isDigit(char c)
+{
+    return (c >= '0' && c <= '9');
+}
+
+bool Solution::isLetter(char c)
+{
+    return (c >= 'a' && c <= 'z');
+}
+
+int Solution::precedence(string c)
+{
+    if (c == ")")
+        return 0;
+    if (c == "(")
+        return 1;
+    if (c == "+" || c == "-")
+        return 2;
+    if (c == "*" || c == "/" || c == "%")
+        return 3;
+    if (c == "^")
+        return 4;
+    for (int i = 0; i < 18; i++)
+    {
+        if (func[i] == c)
+            return 5;
+    }
+    if (c == ".")
+        return 6;
+    if (c != "0" && c != "pi" && atof(c.c_str()) == 0)
+        return 7;
+    return 8;
+}
+
+vector<string> Solution::StringHandling(string& str)
+{
+    str.erase(remove(str.begin(), str.end(), ' '), str.end());
+
+    size_t found = str.find("()");
+    if (found != string::npos)
+        throw "Something wrong with expression!";
+
+    int minus = 0;
+    unsigned int i = 0, k = 0;
+    while (str[i] == '+' || str[i] == '-')
+    {
+        if (str[i] == '-')
+            minus++;
+        i++;
+    }
+
+    vector<string> s;
+
+    if (minus % 2 != 0)
+    {
+        s.push_back("0");
+        s.push_back("-");
+        k = 2;
+    }
+
+    while (i < str.size())
+    {
+        int flag = 0;
+        s.push_back("");
+        if (str[i] == '-' || str[i] == '+')
+        {
+            flag = i - 1;
+            minus = 0;
+            while (str[i] == '+' || str[i] == '-')
+            {
+                if (str[i] == '-')
+                    minus++;
+                i++;
+            }
+            if (str[flag] == '%')
+            {
+                s.pop_back();
+                continue;
+            }
+            if (str[flag] == '/' || str[flag] == '*')
+            {
+                s.insert(s.end() - 2, "*");
+                if (minus % 2 == 0)
+                    s.insert(s.end() - 2, "1");
+                else
+                    s.insert(s.end() - 2, "-1");
+                k++;
+                s.pop_back();
+            }
+            else if (str[flag] == '^')
+            {
+
+                if (minus % 2 != 0) {
+                    s.insert(s.end() - 3, "(");
+                    s.insert(s.end() - 3, "1");
+                    s.insert(s.end() - 3, "/");
+                    s.insert(s.end() - 2, ")");
+                    k += 3;
+
+                    s.pop_back();
+                }
+                else
+                {
+                    k -= 1;
+                    s.pop_back();
+                }
+            }
+            else
+            {
+                if (str[flag] == '(')
+                {
+                    s[k++].push_back('0');
+                    s.push_back("");
+                }
+                if (minus % 2 == 0)
+                    s[k].push_back('+');
+                else
+                    s[k].push_back('-');
+            }
+            i--;
+        }
+        else if (isLetter(str[i]))
+        {
+            while (isLetter(str[i]))
+            {
+                s[k].push_back(str[i]);
+                i++;
+            }
+            i--;
+        }
+        else if (isDigit(str[i]))
+        {
+            while (isDigit(str[i]))
+            {
+                s[k].push_back(str[i]);
+                i++;
+            }
+            if (str[i] == '.')
+            {
+                s[k].push_back(str[i]);
+                i++;
+            }
+            while (isDigit(str[i]))
+            {
+                s[k].push_back(str[i]);
+                i++;
+            }
+            i--;
+        }
+        else if (str[i] == '.')
+        {
+            s[k].push_back(str[i]);
+            i++;
+            while (isDigit(str[i]))
+            {
+                s[k].push_back(str[i]);
+                i++;
+            }
+            i--;
+        }
+        else
+            s[k].push_back(str[i]);
+        k++;
+        i++;
+    }
+    return s;
+}
+
+vector<string> Solution::InfixToPostfix(vector<string> s)
+{
+    vector<string> ans;
+    Stack<string> myStack;
+    int flag = 0;
+    for (unsigned int i = 0; i < s.size(); i++)
+    {
+        int temp1 = (myStack.empty()) ? -1 : (precedence(myStack.top()->val));
+        int temp2 = precedence(s[i]);
+        if (temp2 == 8)
+        {
+            ans.push_back(s[i]);
+            continue;
+        }
+        if (temp2 == 1)
+        {
+            myStack.push(s[i]);
+            if (temp1 == 5)
+                flag++;
+            continue;
+        }
+        if (temp2 == 0)
+        {
+            if (flag > 0) // còn toán tử số 5
+            {
+                while (myStack.top()->val != "(")
+                {
+                    ans.push_back(myStack.top()->val);
+                    myStack.pop();
+                }
+                myStack.pop(); // bo ngoac "("
+
+                if (precedence(myStack.top()->val) == 5)
+                {
+                    ans.push_back(myStack.top()->val);
+                    myStack.pop();
+                    flag--;
+                    continue;
+                }
+                if (i + 1 < s.size() && s[i + 1] == "^")
+                {
+                    ans.push_back(myStack.top()->val);
+                    myStack.pop();
+                    continue;
+                }
+            }
+            else // không có toán tử số 5 nào
+            {
+                while (!myStack.empty() && myStack.top()->val != "(")
+                {
+                    ans.push_back(myStack.top()->val);
+                    myStack.pop();
+                }
+                if (myStack.empty())
+                    throw "Something wrong with expression!";
+                myStack.pop();
+            }
+            continue;
+        }
+        if (temp2 > temp1 || (temp2 == temp1 && temp1 == 4))
+            myStack.push(s[i]);
+        else
+        {
+            while (!myStack.empty() && temp2 <= temp1)
+            {
+                ans.push_back(myStack.top()->val);
+                myStack.pop();
+                temp1 = (myStack.empty()) ? -1 : (precedence(myStack.top()->val));
+            }
+            myStack.push(s[i]);
+        }
+    }
+
+    while (!myStack.empty())
+    {
+        ans.push_back(myStack.top()->val);
+        myStack.pop();
+    }
+    return ans;
+}
+
+float Solution::calculatePostfix(vector<string> s)
+{
+    map<string, float (*)(float)> mp;
+    for (int i = 0; i < 18; i++) {
+        mp[func[i]] = address[i];
+    }
+
+    Stack<string> myStack;
+    for (unsigned int i = 0; i < s.size(); i++)
+    {
+        int temp = precedence(s[i]);
+        if ((temp == 2 || temp == 3 || temp == 4) && myStack.size() == 1) // Phần tử là các toán tử +,-,*,/,^ và kích thước của Stack có nhiều hơn một phần tử
+            throw "Something wrong with expression!";
+        if (temp == 8) // Phần tử là số
+        {
+            if (s[i] == "pi")
+                myStack.push("3.141593");
+            else
+                myStack.push(s[i]);
+        }
+        else if (temp == 5) // Phần tử là các hàm thông dụng
+        {
+            float x = mp[s[i]](atof(myStack.top()->val.c_str()));
+            if (isnan(x)) // Kiểm tra tham số truyền vào hàm có trả về NAN hay không. VD: sqrt(-4) => NAN, log(-1) => NAN
+                throw "Something wrong with expression!";
+            myStack.top()->val = to_string(x);
+        }
+        else // Phần tử có thể là các toán hạng +,-,*,/,^ hoặc kèm với các kí tự đặc biệt như ~,@,#...
+        {
+            if (myStack.empty()) // Trường hợp Stack rỗng => Không có top
+                throw "Something wrong with expression!";
+            float y = atof(myStack.top()->val.c_str()); // Stack không rỗng => Lấy được giá trị top
+            myStack.pop();
+            if (s[i] == "+" && !myStack.empty())
+                myStack.top()->val = to_string(atof(myStack.top()->val.c_str()) + y);
+            else if (s[i] == "-" && !myStack.empty())
+                myStack.top()->val = to_string(atof(myStack.top()->val.c_str()) - y);
+            else if (s[i] == "*" && !myStack.empty())
+                myStack.top()->val = to_string(atof(myStack.top()->val.c_str()) * y);
+            else if (s[i] == "/" && !myStack.empty())
+            {
+                if (y == 0)
+                    throw "Division by zero!";
+                myStack.top()->val = to_string(atof(myStack.top()->val.c_str()) / y);
+            }
+            else if (s[i] == "%" && !myStack.empty())
+            {
+                float a = atof(myStack.top()->val.c_str());
+                if (y == int(y) && a == int(a))
+                {
+                    if (y == 0)
+                        throw "Division by zero!";
+                    else
+                        myStack.top()->val = to_string(int(a) % int(y));
+                }
+                else
+                    throw "The 2 operator must have 2 operands of type int and int";
+            }
+            else if (s[i] == "^" && !myStack.empty())
+                myStack.top()->val = to_string(pow(atof(myStack.top()->val.c_str()), y));
+            else // Trường hợp các kí tự đặc biệt như ~,@,#...
+                throw "Something wrong with expression!";
+        }
+    }
+
+    // Nếu kết quả cuối cùng là 1 Stack rỗng hoặc kích thước của 1 Stack > 1 => Sai
+    // Kết quả đúng thì trong Stack phải còn 1 phần tử duy nhất
+    if (myStack.empty() || myStack.size() > 1)
+        throw "Something wrong with expression!";
+
+    float ans = atof(myStack.top()->val.c_str());
+    return ans;
+}
