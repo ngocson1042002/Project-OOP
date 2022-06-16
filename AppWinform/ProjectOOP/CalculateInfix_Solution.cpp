@@ -41,18 +41,17 @@ int CalculateInfix_Solution::precedence(string c)
 
 vector<string> CalculateInfix_Solution::StringHandling(string& str)
 {
-    for (unsigned int i = 0; i < str.size(); i++)
+    for (unsigned int i = 0; i < str.size(); i++) // Kiểm tra trường hợp: "5    4", "5    .     4", "s    q    rt( 4)"
     {
         if (isDigit(str[i]) || isLetter(str[i]) || str[i] == '.')
         {
             unsigned int j = (i + 2 < str.size() && str[i + 1] == '.') ? i + 2 : i + 1;
+            int remain = j;
             while (j < str.size() && str[j] == ' ')
-            {
                 j++;
-            }
             if (j == str.size())
                 break;
-            if (j == i + 1)
+            if (j == remain)
                 continue;
             if (isDigit(str[j]) || isLetter(str[j]) || str[j] == '.')
                 throw "Something wrong with expression!";
@@ -330,7 +329,8 @@ float CalculateInfix_Solution::calculatePostfix(vector<string> s)
                 {
                     if (mp["!"](t) == -1) // Giá trị t là số âm
                         throw "Something wrong with expression!";
-                    myStack.top() = to_string(mp["!"](t));
+                    myStack.pop();
+                    myStack.push(to_string(mp["!"](t)));
                     continue;
                 }
                 else // Không nguyên
@@ -340,41 +340,46 @@ float CalculateInfix_Solution::calculatePostfix(vector<string> s)
             float x = mp[s[i]](t);
             if (isnan(x)) // Kiểm tra tham số truyền vào hàm có trả về NAN hay không. VD: sqrt(-4) => NAN, log(-1) => NAN
                 throw "Something wrong with expression!";
-            myStack.top() = to_string(x);
+            myStack.pop();
+            myStack.push(to_string(x));
         }
         else // Phần tử có thể là các toán hạng +,-,*,/,^ hoặc kèm với các kí tự đặc biệt như ~,@,#...
         {
             if (myStack.empty()) // Trường hợp Stack rỗng => Không có top
                 throw "Something wrong with expression!";
-            float y = atof(myStack.top().c_str()); // Stack không rỗng => Lấy được giá trị top
+            float y1 = atof(myStack.top().c_str()); // Stack không rỗng => Lấy được giá trị top
             myStack.pop();
-            if (s[i] == "+" && !myStack.empty())
-                myStack.top() = to_string(atof(myStack.top().c_str()) + y);
-            else if (s[i] == "-" && !myStack.empty())
-                myStack.top() = to_string(atof(myStack.top().c_str()) - y);
-            else if (s[i] == "*" && !myStack.empty())
-                myStack.top() = to_string(atof(myStack.top().c_str()) * y);
-            else if (s[i] == "/" && !myStack.empty())
+
+            if (myStack.empty())
+                throw "Something wrong with expression!";
+            float y2 = atof(myStack.top().c_str());
+            myStack.pop();
+            if (s[i] == "+")
+                myStack.push(to_string(y2 + y1));
+            else if (s[i] == "-")
+                myStack.push(to_string(y2 - y1));
+            else if (s[i] == "*")
+                myStack.push(to_string(y2 * y1));
+            else if (s[i] == "/")
             {
-                if (y == 0) // Trường hợp chia cho 0
+                if (y1 == 0) // Trường hợp chia cho 0
                     throw "Division by zero!";
-                myStack.top() = to_string(atof(myStack.top().c_str()) / y);
+                myStack.push(to_string(y2 / y1));
             }
-            else if (s[i] == "%" && !myStack.empty())
+            else if (s[i] == "%")
             {
-                float a = atof(myStack.top().c_str());
-                if (y == int(y) && a == int(a))
+                if (y1 == int(y1) && y2 == int(y2))
                 {
-                    if (y == 0) // Trường hợp chia lấy dư cho 0
+                    if (y1 == 0) // Trường hợp chia lấy dư cho 0
                         throw "Division by zero!";
                     else
-                        myStack.top() = to_string(int(a) % int(y));
+                        myStack.push(to_string(int(y2) % int(y1)));
                 }
                 else // Trường hợp 1 trong 2 số không nguyên
                     throw "The 2 operator must have 2 operands of type int and int";
             }
-            else if (s[i] == "^" && !myStack.empty())
-                myStack.top() = to_string(pow(atof(myStack.top().c_str()), y));
+            else if (s[i] == "^")
+                myStack.push(to_string(pow(y2, y1)));
             else // Trường hợp các kí tự đặc biệt như ~,@,#...
                 throw "Something wrong with expression!";
         }
