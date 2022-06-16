@@ -41,7 +41,7 @@ int CalculateInfix_Solution::precedence(string c)
 
 vector<string> CalculateInfix_Solution::StringHandling(string& str)
 {
-    for (unsigned int i = 0; i < str.size(); i++)
+    for (unsigned int i = 0; i < str.size(); i++) // Kiểm tra trường hợp: "5    4", "5    .     4", "s    q    rt( 4)"
     {
         if (isDigit(str[i]) || isLetter(str[i]) || str[i] == '.')
         {
