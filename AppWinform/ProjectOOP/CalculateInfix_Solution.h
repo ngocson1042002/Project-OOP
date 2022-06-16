@@ -1,5 +1,5 @@
-#ifndef Solution_h
-#define Solution_h
+#ifndef CalculateInfix_Solution_h
+#define CalculateInfix_Solution_h
 
 #include "MathFunctions.h"
 #include "Stack.h"
