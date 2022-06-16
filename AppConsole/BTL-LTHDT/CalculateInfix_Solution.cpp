@@ -328,7 +328,8 @@ float CalculateInfix_Solution::calculatePostfix(vector<string> s)
                 {
                     if (mp["!"](t) == -1) // Giá trị t là số âm
                         throw "Something wrong with expression!";
-                    myStack.top() = to_string(mp["!"](t));
+                    myStack.pop();
+                    myStack.push(to_string(mp["!"](t)));
                     continue;
                 }
                 else // Không nguyên
@@ -338,7 +339,8 @@ float CalculateInfix_Solution::calculatePostfix(vector<string> s)
             float x = mp[s[i]](t);
             if (isnan(x)) // Kiểm tra tham số truyền vào hàm có trả về NAN hay không. VD: sqrt(-4) => NAN, log(-1) => NAN
                 throw "Something wrong with expression!";
-            myStack.top() = to_string(x);
+            myStack.pop();
+            myStack.push(to_string(x));
         }
         else // Phần tử có thể là các toán hạng +,-,*,/,^ hoặc kèm với các kí tự đặc biệt như ~,@,#...
         {
