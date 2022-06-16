@@ -1,21 +1,21 @@
-﻿#include "Solution.h"
+﻿#include "CalculateInfix_Solution.h"
 
 const char* func[19] = { "cos", "sin", "tan", "acos", "asin", "atan", "cosh", "sinh", "tanh", "acosh", "asinh", "atanh", "exp", "abs", "ln", "log", "sqrt", "cbrt", "!" };
 
 // Một mảng con trỏ hàm
 float (*address[19])(float) = { cal_cos, cal_sin, cal_tan, cal_acos, cal_asin, cal_atan, cal_cosh, cal_sinh, cal_tanh, cal_acosh, cal_asinh, cal_atanh, cal_exp, cal_abs, cal_log, cal_log10, cal_sqrt, cal_cbrt, cal_factorial };
 
-bool Solution::isDigit(char c)
+bool CalculateInfix_Solution::isDigit(char c)
 {
     return (c >= '0' && c <= '9');
 }
 
-bool Solution::isLetter(char c)
+bool CalculateInfix_Solution::isLetter(char c)
 {
     return (c >= 'a' && c <= 'z');
 }
 
-int Solution::precedence(string c)
+int CalculateInfix_Solution::precedence(string c)
 {
     if (c == ")")
         return 0;
@@ -39,7 +39,7 @@ int Solution::precedence(string c)
     return 8;
 }
 
-vector<string> Solution::StringHandling(string& str)
+vector<string> CalculateInfix_Solution::StringHandling(string& str)
 {
     for (unsigned int i = 0; i < str.size(); i++)
     {
@@ -212,7 +212,7 @@ vector<string> Solution::StringHandling(string& str)
     return s;
 }
 
-vector<string> Solution::InfixToPostfix(vector<string> s)
+vector<string> CalculateInfix_Solution::InfixToPostfix(vector<string> s)
 {
     vector<string> ans;
     Stack<string> myStack;
@@ -296,7 +296,7 @@ vector<string> Solution::InfixToPostfix(vector<string> s)
     return ans;
 }
 
-float Solution::calculatePostfix(vector<string> s)
+float CalculateInfix_Solution::calculatePostfix(vector<string> s)
 {
     map<string, float (*)(float)> mp; // key: Chuỗi, value: Địa chỉ của hàm
     for (int i = 0; i < 19; i++) {

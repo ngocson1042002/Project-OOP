@@ -9,7 +9,7 @@
 #include<algorithm>
 using namespace std;
 
-class Solution {
+class CalculateInfix_Solution {
 public:
 	bool isDigit(char c);
 	bool isLetter(char c);

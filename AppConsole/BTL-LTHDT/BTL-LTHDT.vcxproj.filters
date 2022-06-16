@@ -21,7 +21,7 @@
     <ClCompile Include="MathFunctions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Solution.cpp">
+    <ClCompile Include="CalculateInfix_Solution.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -32,7 +32,7 @@
     <ClInclude Include="Stack.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="Solution.h">
+    <ClInclude Include="CalculateInfix_Solution.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

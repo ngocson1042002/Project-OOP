@@ -129,11 +129,11 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MathFunctions.cpp" />
-    <ClCompile Include="Solution.cpp" />
+    <ClCompile Include="CalculateInfix_Solution.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MathFunctions.h" />
-    <ClInclude Include="Solution.h" />
+    <ClInclude Include="CalculateInfix_Solution.h" />
     <ClInclude Include="Stack.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

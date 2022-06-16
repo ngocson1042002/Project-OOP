@@ -1,4 +1,4 @@
-#include "Solution.h"
+#include "CalculateInfix_Solution.h"
 #include<iostream>
 
 int main() {
@@ -54,7 +54,7 @@ int main() {
     for (unsigned int i = 0; i < list.size(); i++)
     {
         try {
-            Solution sol;
+            CalculateInfix_Solution sol;
             vector<string> s = sol.StringHandling(list[i]);
             vector<string> a = sol.InfixToPostfix(s);
             float t = sol.calculatePostfix(a);
