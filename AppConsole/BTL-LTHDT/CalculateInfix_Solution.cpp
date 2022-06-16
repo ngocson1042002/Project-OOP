@@ -346,35 +346,39 @@ float CalculateInfix_Solution::calculatePostfix(vector<string> s)
         {
             if (myStack.empty()) // Trường hợp Stack rỗng => Không có top
                 throw "Something wrong with expression!";
-            float y = atof(myStack.top().c_str()); // Stack không rỗng => Lấy được giá trị top
+            float y1 = atof(myStack.top().c_str()); // Stack không rỗng => Lấy được giá trị top
             myStack.pop();
-            if (s[i] == "+" && !myStack.empty())
-                myStack.top() = to_string(atof(myStack.top().c_str()) + y);
-            else if (s[i] == "-" && !myStack.empty())
-                myStack.top() = to_string(atof(myStack.top().c_str()) - y);
-            else if (s[i] == "*" && !myStack.empty())
-                myStack.top() = to_string(atof(myStack.top().c_str()) * y);
-            else if (s[i] == "/" && !myStack.empty())
+
+            if(myStack.empty())
+                throw "Something wrong with expression!";
+            float y2 = atof(myStack.top().c_str());
+            myStack.pop();
+            if (s[i] == "+")
+                myStack.push(to_string(y2 + y1));
+            else if (s[i] == "-")
+                myStack.push(to_string(y2 - y1));
+            else if (s[i] == "*")
+                myStack.push(to_string(y2 * y1));
+            else if (s[i] == "/")
             {
-                if (y == 0) // Trường hợp chia cho 0
+                if (y1 == 0) // Trường hợp chia cho 0
                     throw "Division by zero!";
-                myStack.top() = to_string(atof(myStack.top().c_str()) / y);
+                myStack.push(to_string(y2 / y1));
             }
-            else if (s[i] == "%" && !myStack.empty())
+            else if (s[i] == "%")
             {
-                float a = atof(myStack.top().c_str());
-                if (y == int(y) && a == int(a))
+                if (y1 == int(y1) && y2 == int(y2))
                 {
-                    if (y == 0) // Trường hợp chia lấy dư cho 0
+                    if (y1 == 0) // Trường hợp chia lấy dư cho 0
                         throw "Division by zero!";
                     else
-                        myStack.top() = to_string(int(a) % int(y));
+                        myStack.push(to_string(int(y2) % int(y1)));
                 }
                 else // Trường hợp 1 trong 2 số không nguyên
                     throw "The 2 operator must have 2 operands of type int and int";
             }
-            else if (s[i] == "^" && !myStack.empty())
-                myStack.top() = to_string(pow(atof(myStack.top().c_str()), y));
+            else if (s[i] == "^")
+                myStack.push(to_string(pow(y2,y1)));
             else // Trường hợp các kí tự đặc biệt như ~,@,#...
                 throw "Something wrong with expression!";
         }
