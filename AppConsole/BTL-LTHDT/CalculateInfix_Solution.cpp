@@ -46,11 +46,12 @@ vector<string> CalculateInfix_Solution::StringHandling(string& str)
         if (isDigit(str[i]) || isLetter(str[i]) || str[i] == '.')
         {
             unsigned int j = (i + 2 < str.size() && str[i + 1] == '.') ? i + 2 : i + 1;
+            int remain = j;
             while (j < str.size() && str[j] == ' ')
                 j++;
             if (j == str.size())
                 break;
-            if (j == i + 1 || j == i + 2)
+            if (j == remain)
                 continue;
             if (isDigit(str[j]) || isLetter(str[j]) || str[j] == '.')
                 throw "Something wrong with expression!";
