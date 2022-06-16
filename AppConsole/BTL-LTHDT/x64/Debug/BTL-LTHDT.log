@@ -1,2 +1,7 @@
-﻿  LINK : D:\Test\Project-OOP\AppConsole\x64\Debug\BTL-LTHDT.exe not found or not built by the last incremental link; performing full link
+﻿  CalculateInfix_Solution.cpp
+D:\Test\Project-OOP\AppConsole\BTL-LTHDT\CalculateInfix_Solution.cpp(324,21): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\Test\Project-OOP\AppConsole\BTL-LTHDT\CalculateInfix_Solution.cpp(347,22): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\Test\Project-OOP\AppConsole\BTL-LTHDT\CalculateInfix_Solution.cpp(352,22): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+D:\Test\Project-OOP\AppConsole\BTL-LTHDT\CalculateInfix_Solution.cpp(390,15): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  LINK : D:\Test\Project-OOP\AppConsole\x64\Debug\BTL-LTHDT.exe not found or not built by the last incremental link; performing full link
   BTL-LTHDT.vcxproj -> D:\Test\Project-OOP\AppConsole\x64\Debug\BTL-LTHDT.exe
