@@ -1,5 +1,0 @@
-C:\Users\Admin\source\repos\ProjectOOP\ProjectOOP\x64\Debug\ProjectOOP.vcxproj.AssemblyReference.cache
-C:\Users\Admin\source\repos\ProjectOOP\ProjectOOP\x64\Debug\ProjectOOP.vcxproj.SuggestedBindingRedirects.cache
-C:\Users\Admin\source\repos\ProjectOOP\ProjectOOP\x64\Debug\ProjectOOP.About.resources
-C:\Users\Admin\source\repos\ProjectOOP\ProjectOOP\x64\Debug\ProjectOOP.Calculator.resources
-C:\Users\Admin\source\repos\ProjectOOP\ProjectOOP\x64\Debug\ProjectOOP.vcxproj.GenerateResource.cache
