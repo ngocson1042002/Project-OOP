@@ -53,7 +53,7 @@ vector<string> CalculateInfix_Solution::StringHandling(string& str)
                 break;
             if (j == remain)
                 continue;
-            if (isDigit(str[j]) || isLetter(str[j]) || str[j] == '.')
+            if (isDigit(str[j]) || isLetter(str[j]) || str[j] == '.' || str[j] == '!')
                 throw "Something wrong with expression!";
             i = j - 1;
         }

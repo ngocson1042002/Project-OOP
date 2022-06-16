@@ -1,0 +1,14 @@
+﻿  About.cpp
+  Calculator.cpp
+  MathFunctions.cpp
+C:\Users\Admin\source\repos\ProjectOOP\ProjectOOP\MathFunctions.cpp(81,37): warning C4244: 'argument': conversion from 'float' to 'const unsigned __int64', possible loss of data
+C:\Users\Admin\source\repos\ProjectOOP\ProjectOOP\MathFunctions.cpp(87,23): warning C4244: 'argument': conversion from 'float' to 'const unsigned __int64', possible loss of data
+  CalculateInfix_Solution.cpp
+C:\Users\Admin\source\repos\ProjectOOP\ProjectOOP\CalculateInfix_Solution.cpp(325,21): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\Admin\source\repos\ProjectOOP\ProjectOOP\CalculateInfix_Solution.cpp(350,22): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\Admin\source\repos\ProjectOOP\ProjectOOP\CalculateInfix_Solution.cpp(355,22): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\Admin\source\repos\ProjectOOP\ProjectOOP\CalculateInfix_Solution.cpp(393,15): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  .NETFramework,Version=v4.7.2.AssemblyAttributes.cpp
+  Generating Code...
+  About.obj : MSIL module encountered; incremental linking is disabled for MSIL; performing full link
+  ProjectOOP.vcxproj -> C:\Users\Admin\source\repos\ProjectOOP\x64\Debug\ProjectOOP.exe
