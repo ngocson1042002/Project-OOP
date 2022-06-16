@@ -1,4 +1,4 @@
-﻿#include "Solution.h"
+﻿#include "CalculateInfix_Solution.h"
 
 const char* func[19] = { "cos", "sin", "tan", "acos", "asin", "atan", "cosh", "sinh", "tanh", "acosh", "asinh", "atanh", "exp", "abs", "ln", "log", "sqrt", "cbrt", "!" };
 
@@ -41,6 +41,25 @@ int Solution::precedence(string c)
 
 vector<string> Solution::StringHandling(string& str)
 {
+    for (unsigned int i = 0; i < str.size(); i++)
+    {
+        if (isDigit(str[i]) || isLetter(str[i]) || str[i] == '.')
+        {
+            unsigned int j = (i + 2 < str.size() && str[i + 1] == '.') ? i + 2 : i + 1;
+            while (j < str.size() && str[j] == ' ')
+            {
+                j++;
+            }
+            if (j == str.size())
+                break;
+            if (j == i + 1)
+                continue;
+            if (isDigit(str[j]) || isLetter(str[j]) || str[j] == '.')
+                throw "Something wrong with expression!";
+            i = j - 1;
+        }
+    }
+
     // Xóa khoảng trắng
     str.erase(remove(str.begin(), str.end(), ' '), str.end());
 

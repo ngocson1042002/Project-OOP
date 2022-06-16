@@ -121,27 +121,27 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="About.cpp" />
-    <ClCompile Include="Caculation.cpp" />
+    <ClCompile Include="Calculator.cpp" />
     <ClCompile Include="MathFunctions.cpp" />
-    <ClCompile Include="Solution.cpp" />
+    <ClCompile Include="CalculateInfix_Solution.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="About.h">
       <FileType>CppForm</FileType>
     </ClInclude>
-    <ClInclude Include="Caculation.h">
+    <ClInclude Include="Calculator.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="MathFunctions.h" />
-    <ClInclude Include="Solution.h" />
+    <ClInclude Include="CalculateInfix_Solution.h" />
     <ClInclude Include="Stack.h" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="About.resx">
       <DependentUpon>About.h</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Caculation.resx">
-      <DependentUpon>Caculation.h</DependentUpon>
+    <EmbeddedResource Include="Calculator.resx">
+      <DependentUpon>Calculator.h</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

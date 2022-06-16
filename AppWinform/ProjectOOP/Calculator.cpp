@@ -1,4 +1,4 @@
-#include "Caculation.h"
+#include "Calculator.h"
 
 using namespace System;
 using namespace System::Windows::Forms;
@@ -6,6 +6,6 @@ using namespace System::Windows::Forms;
 void main() {
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false);
-	ProjectOOP::Caculation form;
+	ProjectOOP::Calculator form;
 	Application::Run(% form);
 }
