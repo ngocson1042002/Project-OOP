@@ -41,6 +41,25 @@ int Solution::precedence(string c)
 
 vector<string> Solution::StringHandling(string& str)
 {
+    for (unsigned int i = 0; i < str.size(); i++)
+    {
+        if (isDigit(str[i]) || isLetter(str[i]) || str[i] == '.')
+        {
+            unsigned int j = (i + 2 < str.size() && str[i + 1] == '.') ? i + 2 : i + 1;
+            while (j < str.size() && str[j] == ' ')
+            {
+                j++;
+            }
+            if (j == str.size())
+                break;
+            if (j == i + 1)
+                continue;
+            if (isDigit(str[j]) || isLetter(str[j]) || str[j] == '.')
+                throw "Something wrong with expression!";
+            i = j - 1;
+        }
+    }
+
     // Xóa khoảng trắng
     str.erase(remove(str.begin(), str.end(), ' '), str.end());
 
@@ -200,7 +219,7 @@ vector<string> Solution::InfixToPostfix(vector<string> s)
     int flag = 0;
     for (unsigned int i = 0; i < s.size(); i++)
     {
-        int temp1 = (myStack.empty()) ? -1 : (precedence(myStack.top()->val)); // Độ ưu tiên của phần tử đỉnh trong Stack
+        int temp1 = (myStack.empty()) ? -1 : (precedence(myStack.top())); // Độ ưu tiên của phần tử đỉnh trong Stack
         int temp2 = precedence(s[i]); // Độ ưu tiên của phần tử đang xét trong mảng s
         if (temp2 == 8) // Phần tử trong mảng là số
         {
@@ -218,32 +237,32 @@ vector<string> Solution::InfixToPostfix(vector<string> s)
         {
             if (flag > 0) // Trong Stack có chứa hàm 
             {
-                while (myStack.top()->val != "(")
+                while (myStack.top() != "(")
                 {
-                    ans.push_back(myStack.top()->val); // Thêm vào output
+                    ans.push_back(myStack.top()); // Thêm vào output
                     myStack.pop();
                 }
                 myStack.pop(); // Bỏ dấu "("
 
-                if (precedence(myStack.top()->val) == 5) // Đỉnh của Stack là hàm
+                if (precedence(myStack.top()) == 5) // Đỉnh của Stack là hàm
                 {
-                    ans.push_back(myStack.top()->val); // Thêm vào ouput
+                    ans.push_back(myStack.top()); // Thêm vào ouput
                     myStack.pop();
                     flag--;
                     continue;
                 }
                 if (i + 1 < s.size() && s[i + 1] == "^") // Trước phần tử đang xét là dấu "^"
                 {
-                    ans.push_back(myStack.top()->val); // Thêm vào ouput
+                    ans.push_back(myStack.top()); // Thêm vào ouput
                     myStack.pop();
                     continue;
                 }
             }
             else // Trong Stack không chứa hàm 
             {
-                while (!myStack.empty() && myStack.top()->val != "(")
+                while (!myStack.empty() && myStack.top() != "(")
                 {
-                    ans.push_back(myStack.top()->val);
+                    ans.push_back(myStack.top());
                     myStack.pop();
                 }
                 if (myStack.empty()) // Thiếu ngoặc "("
@@ -261,9 +280,9 @@ vector<string> Solution::InfixToPostfix(vector<string> s)
         {
             while (!myStack.empty() && temp2 <= temp1)
             {
-                ans.push_back(myStack.top()->val); // Thêm vào ouput
+                ans.push_back(myStack.top()); // Thêm vào ouput
                 myStack.pop();
-                temp1 = (myStack.empty()) ? -1 : (precedence(myStack.top()->val));
+                temp1 = (myStack.empty()) ? -1 : (precedence(myStack.top()));
             }
             myStack.push(s[i]); // push s[i] vào Stack
         }
@@ -271,7 +290,7 @@ vector<string> Solution::InfixToPostfix(vector<string> s)
 
     while (!myStack.empty()) // Nếu chưa rỗng push hết tất cả vào ouput
     {
-        ans.push_back(myStack.top()->val);
+        ans.push_back(myStack.top());
         myStack.pop();
     }
     return ans;
@@ -304,14 +323,14 @@ float Solution::calculatePostfix(vector<string> s)
             if (myStack.empty()) // Stack rỗng => Không có tham số truyền vào hàm
                 throw "Something wrong with expression!";
 
-            float t = atof(myStack.top()->val.c_str()); // Lấy giá trị của đỉnh Stack           
+            float t = atof(myStack.top().c_str()); // Lấy giá trị của đỉnh Stack           
             if (s[i] == "!") // Giai thừa
             {
                 if (t == int(t)) // Giá trị t phải là số nguyên
                 {
                     if (mp["!"](t) == -1) // Giá trị t là số âm
                         throw "Something wrong with expression!";
-                    myStack.top()->val = to_string(mp["!"](t));
+                    myStack.top() = to_string(mp["!"](t));
                     continue;
                 }
                 else // Không nguyên
@@ -321,41 +340,41 @@ float Solution::calculatePostfix(vector<string> s)
             float x = mp[s[i]](t);
             if (isnan(x)) // Kiểm tra tham số truyền vào hàm có trả về NAN hay không. VD: sqrt(-4) => NAN, log(-1) => NAN
                 throw "Something wrong with expression!";
-            myStack.top()->val = to_string(x);
+            myStack.top() = to_string(x);
         }
         else // Phần tử có thể là các toán hạng +,-,*,/,^ hoặc kèm với các kí tự đặc biệt như ~,@,#...
         {
             if (myStack.empty()) // Trường hợp Stack rỗng => Không có top
                 throw "Something wrong with expression!";
-            float y = atof(myStack.top()->val.c_str()); // Stack không rỗng => Lấy được giá trị top
+            float y = atof(myStack.top().c_str()); // Stack không rỗng => Lấy được giá trị top
             myStack.pop();
             if (s[i] == "+" && !myStack.empty())
-                myStack.top()->val = to_string(atof(myStack.top()->val.c_str()) + y);
+                myStack.top() = to_string(atof(myStack.top().c_str()) + y);
             else if (s[i] == "-" && !myStack.empty())
-                myStack.top()->val = to_string(atof(myStack.top()->val.c_str()) - y);
+                myStack.top() = to_string(atof(myStack.top().c_str()) - y);
             else if (s[i] == "*" && !myStack.empty())
-                myStack.top()->val = to_string(atof(myStack.top()->val.c_str()) * y);
+                myStack.top() = to_string(atof(myStack.top().c_str()) * y);
             else if (s[i] == "/" && !myStack.empty())
             {
                 if (y == 0) // Trường hợp chia cho 0
                     throw "Division by zero!";
-                myStack.top()->val = to_string(atof(myStack.top()->val.c_str()) / y);
+                myStack.top() = to_string(atof(myStack.top().c_str()) / y);
             }
             else if (s[i] == "%" && !myStack.empty())
             {
-                float a = atof(myStack.top()->val.c_str());
+                float a = atof(myStack.top().c_str());
                 if (y == int(y) && a == int(a))
                 {
                     if (y == 0) // Trường hợp chia lấy dư cho 0
                         throw "Division by zero!";
                     else
-                        myStack.top()->val = to_string(int(a) % int(y));
+                        myStack.top() = to_string(int(a) % int(y));
                 }
                 else // Trường hợp 1 trong 2 số không nguyên
                     throw "The 2 operator must have 2 operands of type int and int";
             }
             else if (s[i] == "^" && !myStack.empty())
-                myStack.top()->val = to_string(pow(atof(myStack.top()->val.c_str()), y));
+                myStack.top() = to_string(pow(atof(myStack.top().c_str()), y));
             else // Trường hợp các kí tự đặc biệt như ~,@,#...
                 throw "Something wrong with expression!";
         }
@@ -366,6 +385,6 @@ float Solution::calculatePostfix(vector<string> s)
     if (myStack.empty() || myStack.size() > 1)
         throw "Something wrong with expression!";
 
-    float ans = atof(myStack.top()->val.c_str());
+    float ans = atof(myStack.top().c_str());
     return ans;
 }
