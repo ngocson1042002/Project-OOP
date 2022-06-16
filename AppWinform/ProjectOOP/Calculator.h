@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "About.h"
 #include <msclr\marshal_cppstd.h>
-#include "Solution.h"
+#include "CalculateInfix_Solution.h"
 
 using namespace msclr::interop;
 
@@ -15,12 +15,12 @@ namespace ProjectOOP {
 	using namespace System::Drawing;
 
 	/// <summary>
-	/// Summary for Caculation
+	/// Summary for Calculator
 	/// </summary>
-	public ref class Caculation : public System::Windows::Forms::Form
+	public ref class Calculator : public System::Windows::Forms::Form
 	{
 	public:
-		Caculation(void)
+		Calculator(void)
 		{
 			InitializeComponent();
 			//
@@ -32,7 +32,7 @@ namespace ProjectOOP {
 		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
-		~Caculation()
+		~Calculator()
 		{
 			if (components)
 			{
@@ -109,7 +109,7 @@ namespace ProjectOOP {
 		void InitializeComponent(void)
 		{
 			this->components = (gcnew System::ComponentModel::Container());
-			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(Caculation::typeid));
+			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(Calculator::typeid));
 			this->textMath = (gcnew System::Windows::Forms::TextBox());
 			this->btn_solve = (gcnew System::Windows::Forms::Button());
 			this->panel1 = (gcnew System::Windows::Forms::Panel());
@@ -185,7 +185,7 @@ namespace ProjectOOP {
 			this->textMath->Name = L"textMath";
 			this->textMath->Size = System::Drawing::Size(746, 42);
 			this->textMath->TabIndex = 2;
-			this->textMath->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &Caculation::textMath_KeyDown);
+			this->textMath->KeyDown += gcnew System::Windows::Forms::KeyEventHandler(this, &Calculator::textMath_KeyDown);
 			// 
 			// btn_solve
 			// 
@@ -201,7 +201,7 @@ namespace ProjectOOP {
 			this->btn_solve->Size = System::Drawing::Size(206, 71);
 			this->btn_solve->TabIndex = 3;
 			this->btn_solve->UseVisualStyleBackColor = false;
-			this->btn_solve->Click += gcnew System::EventHandler(this, &Caculation::btn_solve_Click);
+			this->btn_solve->Click += gcnew System::EventHandler(this, &Calculator::btn_solve_Click);
 			// 
 			// panel1
 			// 
@@ -239,7 +239,7 @@ namespace ProjectOOP {
 			this->btn_clear->Size = System::Drawing::Size(206, 71);
 			this->btn_clear->TabIndex = 8;
 			this->btn_clear->UseVisualStyleBackColor = false;
-			this->btn_clear->Click += gcnew System::EventHandler(this, &Caculation::btn_clear_Click);
+			this->btn_clear->Click += gcnew System::EventHandler(this, &Calculator::btn_clear_Click);
 			// 
 			// btn_Infix_Postfix
 			// 
@@ -254,12 +254,12 @@ namespace ProjectOOP {
 			this->btn_Infix_Postfix->TabIndex = 9;
 			this->btn_Infix_Postfix->Text = L"\\/";
 			this->btn_Infix_Postfix->UseVisualStyleBackColor = false;
-			this->btn_Infix_Postfix->Click += gcnew System::EventHandler(this, &Caculation::btn_Infix_Postfix_Click);
+			this->btn_Infix_Postfix->Click += gcnew System::EventHandler(this, &Calculator::btn_Infix_Postfix_Click);
 			// 
 			// timer1
 			// 
 			this->timer1->Interval = 1;
-			this->timer1->Tick += gcnew System::EventHandler(this, &Caculation::timer1_Tick);
+			this->timer1->Tick += gcnew System::EventHandler(this, &Calculator::timer1_Tick);
 			// 
 			// panel2
 			// 
@@ -394,7 +394,7 @@ namespace ProjectOOP {
 			// timer2
 			// 
 			this->timer2->Interval = 1;
-			this->timer2->Tick += gcnew System::EventHandler(this, &Caculation::timer2_Tick);
+			this->timer2->Tick += gcnew System::EventHandler(this, &Calculator::timer2_Tick);
 			// 
 			// pictureBox2
 			// 
@@ -440,7 +440,7 @@ namespace ProjectOOP {
 			this->btn_e->TabIndex = 71;
 			this->btn_e->Text = L"e";
 			this->btn_e->UseVisualStyleBackColor = false;
-			this->btn_e->Click += gcnew System::EventHandler(this, &Caculation::btn_e_Click);
+			this->btn_e->Click += gcnew System::EventHandler(this, &Calculator::btn_e_Click);
 			// 
 			// btn_sqrt
 			// 
@@ -454,7 +454,7 @@ namespace ProjectOOP {
 			this->btn_sqrt->TabIndex = 70;
 			this->btn_sqrt->Text = L"sqrt(x)";
 			this->btn_sqrt->UseVisualStyleBackColor = false;
-			this->btn_sqrt->Click += gcnew System::EventHandler(this, &Caculation::btn_sqrt_Click);
+			this->btn_sqrt->Click += gcnew System::EventHandler(this, &Calculator::btn_sqrt_Click);
 			// 
 			// btn_log
 			// 
@@ -468,7 +468,7 @@ namespace ProjectOOP {
 			this->btn_log->TabIndex = 69;
 			this->btn_log->Text = L"ln(x)";
 			this->btn_log->UseVisualStyleBackColor = false;
-			this->btn_log->Click += gcnew System::EventHandler(this, &Caculation::btn_log_Click);
+			this->btn_log->Click += gcnew System::EventHandler(this, &Calculator::btn_log_Click);
 			// 
 			// btn_exp
 			// 
@@ -482,7 +482,7 @@ namespace ProjectOOP {
 			this->btn_exp->TabIndex = 68;
 			this->btn_exp->Text = L"exp(x)";
 			this->btn_exp->UseVisualStyleBackColor = false;
-			this->btn_exp->Click += gcnew System::EventHandler(this, &Caculation::btn_exp_Click);
+			this->btn_exp->Click += gcnew System::EventHandler(this, &Calculator::btn_exp_Click);
 			// 
 			// btn_gt
 			// 
@@ -496,7 +496,7 @@ namespace ProjectOOP {
 			this->btn_gt->TabIndex = 75;
 			this->btn_gt->Text = L"!";
 			this->btn_gt->UseVisualStyleBackColor = false;
-			this->btn_gt->Click += gcnew System::EventHandler(this, &Caculation::btn_gt_Click);
+			this->btn_gt->Click += gcnew System::EventHandler(this, &Calculator::btn_gt_Click);
 			// 
 			// btn_cbrt
 			// 
@@ -510,7 +510,7 @@ namespace ProjectOOP {
 			this->btn_cbrt->TabIndex = 74;
 			this->btn_cbrt->Text = L"cbrt(x)";
 			this->btn_cbrt->UseVisualStyleBackColor = false;
-			this->btn_cbrt->Click += gcnew System::EventHandler(this, &Caculation::btn_cbrt_Click);
+			this->btn_cbrt->Click += gcnew System::EventHandler(this, &Calculator::btn_cbrt_Click);
 			// 
 			// btn_log10
 			// 
@@ -524,7 +524,7 @@ namespace ProjectOOP {
 			this->btn_log10->TabIndex = 73;
 			this->btn_log10->Text = L"log(x)";
 			this->btn_log10->UseVisualStyleBackColor = false;
-			this->btn_log10->Click += gcnew System::EventHandler(this, &Caculation::btn_log10_Click);
+			this->btn_log10->Click += gcnew System::EventHandler(this, &Calculator::btn_log10_Click);
 			// 
 			// btn_abs
 			// 
@@ -538,7 +538,7 @@ namespace ProjectOOP {
 			this->btn_abs->TabIndex = 72;
 			this->btn_abs->Text = L"abs(x)";
 			this->btn_abs->UseVisualStyleBackColor = false;
-			this->btn_abs->Click += gcnew System::EventHandler(this, &Caculation::btn_abs_Click);
+			this->btn_abs->Click += gcnew System::EventHandler(this, &Calculator::btn_abs_Click);
 			// 
 			// btn_func
 			// 
@@ -553,17 +553,17 @@ namespace ProjectOOP {
 			this->btn_func->TabIndex = 78;
 			this->btn_func->Text = L">";
 			this->btn_func->UseVisualStyleBackColor = false;
-			this->btn_func->Click += gcnew System::EventHandler(this, &Caculation::btn_func_Click);
+			this->btn_func->Click += gcnew System::EventHandler(this, &Calculator::btn_func_Click);
 			// 
 			// timer3
 			// 
 			this->timer3->Interval = 1;
-			this->timer3->Tick += gcnew System::EventHandler(this, &Caculation::timer3_Tick);
+			this->timer3->Tick += gcnew System::EventHandler(this, &Calculator::timer3_Tick);
 			// 
 			// timer4
 			// 
 			this->timer4->Interval = 1;
-			this->timer4->Tick += gcnew System::EventHandler(this, &Caculation::timer4_Tick);
+			this->timer4->Tick += gcnew System::EventHandler(this, &Calculator::timer4_Tick);
 			// 
 			// btn_cos
 			// 
@@ -577,7 +577,7 @@ namespace ProjectOOP {
 			this->btn_cos->TabIndex = 56;
 			this->btn_cos->Text = L"cos(x)";
 			this->btn_cos->UseVisualStyleBackColor = false;
-			this->btn_cos->Click += gcnew System::EventHandler(this, &Caculation::btn_cos_Click);
+			this->btn_cos->Click += gcnew System::EventHandler(this, &Calculator::btn_cos_Click);
 			// 
 			// btn_sin
 			// 
@@ -591,7 +591,7 @@ namespace ProjectOOP {
 			this->btn_sin->TabIndex = 57;
 			this->btn_sin->Text = L"sin(x)";
 			this->btn_sin->UseVisualStyleBackColor = false;
-			this->btn_sin->Click += gcnew System::EventHandler(this, &Caculation::btn_sin_Click);
+			this->btn_sin->Click += gcnew System::EventHandler(this, &Calculator::btn_sin_Click);
 			// 
 			// btn_acos
 			// 
@@ -605,7 +605,7 @@ namespace ProjectOOP {
 			this->btn_acos->TabIndex = 58;
 			this->btn_acos->Text = L"acos(x)";
 			this->btn_acos->UseVisualStyleBackColor = false;
-			this->btn_acos->Click += gcnew System::EventHandler(this, &Caculation::btn_acos_Click);
+			this->btn_acos->Click += gcnew System::EventHandler(this, &Calculator::btn_acos_Click);
 			// 
 			// btn_asin
 			// 
@@ -619,7 +619,7 @@ namespace ProjectOOP {
 			this->btn_asin->TabIndex = 59;
 			this->btn_asin->Text = L"asin(x)";
 			this->btn_asin->UseVisualStyleBackColor = false;
-			this->btn_asin->Click += gcnew System::EventHandler(this, &Caculation::btn_asin_Click);
+			this->btn_asin->Click += gcnew System::EventHandler(this, &Calculator::btn_asin_Click);
 			// 
 			// btn_cosh
 			// 
@@ -633,7 +633,7 @@ namespace ProjectOOP {
 			this->btn_cosh->TabIndex = 60;
 			this->btn_cosh->Text = L"cosh(x)";
 			this->btn_cosh->UseVisualStyleBackColor = false;
-			this->btn_cosh->Click += gcnew System::EventHandler(this, &Caculation::btn_cosh_Click);
+			this->btn_cosh->Click += gcnew System::EventHandler(this, &Calculator::btn_cosh_Click);
 			// 
 			// btn_sinh
 			// 
@@ -647,7 +647,7 @@ namespace ProjectOOP {
 			this->btn_sinh->TabIndex = 61;
 			this->btn_sinh->Text = L"sinh(x)";
 			this->btn_sinh->UseVisualStyleBackColor = false;
-			this->btn_sinh->Click += gcnew System::EventHandler(this, &Caculation::btn_sinh_Click);
+			this->btn_sinh->Click += gcnew System::EventHandler(this, &Calculator::btn_sinh_Click);
 			// 
 			// btn_acosh
 			// 
@@ -661,7 +661,7 @@ namespace ProjectOOP {
 			this->btn_acosh->TabIndex = 62;
 			this->btn_acosh->Text = L"acosh(x)";
 			this->btn_acosh->UseVisualStyleBackColor = false;
-			this->btn_acosh->Click += gcnew System::EventHandler(this, &Caculation::btn_acosh_Click);
+			this->btn_acosh->Click += gcnew System::EventHandler(this, &Calculator::btn_acosh_Click);
 			// 
 			// btn_asinh
 			// 
@@ -675,7 +675,7 @@ namespace ProjectOOP {
 			this->btn_asinh->TabIndex = 63;
 			this->btn_asinh->Text = L"asinh(x)";
 			this->btn_asinh->UseVisualStyleBackColor = false;
-			this->btn_asinh->Click += gcnew System::EventHandler(this, &Caculation::btn_asinh_Click);
+			this->btn_asinh->Click += gcnew System::EventHandler(this, &Calculator::btn_asinh_Click);
 			// 
 			// btn_tan
 			// 
@@ -689,7 +689,7 @@ namespace ProjectOOP {
 			this->btn_tan->TabIndex = 64;
 			this->btn_tan->Text = L"tan(x)";
 			this->btn_tan->UseVisualStyleBackColor = false;
-			this->btn_tan->Click += gcnew System::EventHandler(this, &Caculation::btn_tan_Click);
+			this->btn_tan->Click += gcnew System::EventHandler(this, &Calculator::btn_tan_Click);
 			// 
 			// btn_atan
 			// 
@@ -703,7 +703,7 @@ namespace ProjectOOP {
 			this->btn_atan->TabIndex = 65;
 			this->btn_atan->Text = L"atan(x)";
 			this->btn_atan->UseVisualStyleBackColor = false;
-			this->btn_atan->Click += gcnew System::EventHandler(this, &Caculation::btn_atan_Click);
+			this->btn_atan->Click += gcnew System::EventHandler(this, &Calculator::btn_atan_Click);
 			// 
 			// btn_tanh
 			// 
@@ -717,7 +717,7 @@ namespace ProjectOOP {
 			this->btn_tanh->TabIndex = 66;
 			this->btn_tanh->Text = L"tanh(x)";
 			this->btn_tanh->UseVisualStyleBackColor = false;
-			this->btn_tanh->Click += gcnew System::EventHandler(this, &Caculation::btn_tanh_Click);
+			this->btn_tanh->Click += gcnew System::EventHandler(this, &Calculator::btn_tanh_Click);
 			// 
 			// btn_atanh
 			// 
@@ -731,7 +731,7 @@ namespace ProjectOOP {
 			this->btn_atanh->TabIndex = 67;
 			this->btn_atanh->Text = L"atanh(x)";
 			this->btn_atanh->UseVisualStyleBackColor = false;
-			this->btn_atanh->Click += gcnew System::EventHandler(this, &Caculation::btn_atanh_Click);
+			this->btn_atanh->Click += gcnew System::EventHandler(this, &Calculator::btn_atanh_Click);
 			// 
 			// flowLayoutPanel1
 			// 
@@ -776,7 +776,7 @@ namespace ProjectOOP {
 			this->btn_pi->TabIndex = 80;
 			this->btn_pi->Text = L"π";
 			this->btn_pi->UseVisualStyleBackColor = false;
-			this->btn_pi->Click += gcnew System::EventHandler(this, &Caculation::btn_pi_Click);
+			this->btn_pi->Click += gcnew System::EventHandler(this, &Calculator::btn_pi_Click);
 			// 
 			// pictureBox7
 			// 
@@ -801,9 +801,9 @@ namespace ProjectOOP {
 			this->about->Size = System::Drawing::Size(143, 50);
 			this->about->TabIndex = 18;
 			this->about->UseVisualStyleBackColor = false;
-			this->about->Click += gcnew System::EventHandler(this, &Caculation::about_Click);
+			this->about->Click += gcnew System::EventHandler(this, &Calculator::about_Click);
 			// 
-			// Caculation
+			// Calculator
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
@@ -839,7 +839,7 @@ namespace ProjectOOP {
 			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->Margin = System::Windows::Forms::Padding(4, 3, 4, 3);
 			this->MaximizeBox = false;
-			this->Name = L"Caculation";
+			this->Name = L"Calculator";
 			this->StartPosition = System::Windows::Forms::FormStartPosition::CenterScreen;
 			this->Text = L"Calculator";
 			this->panel2->ResumeLayout(false);

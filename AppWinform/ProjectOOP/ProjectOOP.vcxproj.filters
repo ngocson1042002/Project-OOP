@@ -15,10 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Caculation.cpp">
+    <ClCompile Include="Calculator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Solution.cpp">
+    <ClCompile Include="CalculateInfix_Solution.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MathFunctions.cpp">
@@ -29,13 +29,13 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Caculation.h">
+    <ClInclude Include="Calculator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Stack.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Solution.h">
+    <ClInclude Include="CalculateInfix_Solution.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MathFunctions.h">
