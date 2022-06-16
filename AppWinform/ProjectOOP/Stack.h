@@ -1,5 +1,5 @@
-#ifndef stack_h
-#define stack_h
+#ifndef Stack_h
+#define Stack_h
 #include<iostream>
 
 template <class T>
