@@ -3,14 +3,14 @@
 
 #include "MathFunctions.h"
 #include "Stack.h"
-#include <sstream>
+#include<sstream>
 #include<string>
 #include<vector>
 #include<map>
 #include<algorithm>
 using namespace std;
 
-class Solution {
+class CalculateInfix_Solution {
 public:
 	bool isDigit(char c);
 	bool isLetter(char c);

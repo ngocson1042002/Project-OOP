@@ -869,7 +869,7 @@ namespace ProjectOOP {
 		this->handling->Text = "";
 		this->string_postfix->Text = "";
 		try {
-			Solution sol;
+			CalculateInfix_Solution sol;
 			vector<string> s = sol.StringHandling(str);
 			for (unsigned int i = 0; i < s.size(); i++)
 			{

@@ -22,7 +22,7 @@ public:
     ~Stack();
     void push(T);
     void pop();
-    Node<T>* top();
+    T top();
     bool empty();
     int size();
 };
@@ -72,14 +72,14 @@ void Stack<T>::pop()
 }
 
 template <class T>
-Node<T>* Stack<T>::top()
+T Stack<T>::top()
 {
     if (empty())
     {
         std::cout << "Empty Stack!" << std::endl;
         exit(0);
     }
-    return pHead;
+    return pHead->val;
 }
 
 template <class T>
